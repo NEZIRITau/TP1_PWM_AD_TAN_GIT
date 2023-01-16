@@ -55,6 +55,9 @@ build/default/production/_ext/1360937237/app.o: ../src/app.c ../src/app.h \
  ../src/system_config/default/system_definitions.h \
  ../../../../../../framework/system/common/sys_common.h \
  ../../../../../../framework/system/common/sys_module.h \
+ ../../../../../../framework/driver/oc/drv_oc.h \
+ ../../../../../../framework/driver/driver_common.h \
+ ../src/system_config/default/framework/driver/oc/drv_oc_static.h \
  ../../../../../../framework/system/devcon/sys_devcon.h \
  ../../../../../../framework/system/system.h \
  ../../../../../../framework/system/clk/sys_clk.h \
@@ -137,13 +140,12 @@ build/default/production/_ext/1360937237/app.o: ../src/app.c ../src/app.h \
  ../../../../../../framework/system/int/sys_int_mapping.h \
  ../src/system_config/default/framework/driver/tmr/drv_tmr_static.h \
  ../../../../../../framework/driver/tmr/drv_tmr.h \
- ../../../../../../framework/driver/driver_common.h \
  ../../../../../../framework/driver/tmr/tmr_definitions_pic32m.h \
  ../../../../../../framework/driver/tmr/drv_tmr_compatibility.h \
  ../../../../../../framework/system/ports/sys_ports.h \
  ../../../../../../framework/system/ports/sys_ports_definitions.h \
  ../src/app.h ../../../../../../bsp/pic32mx_skes/Mc32DriverAdc.h \
- ../../../../../../bsp/pic32mx_skes/Mc32DriverLcd.h
+ ../../../../../../bsp/pic32mx_skes/Mc32DriverLcd.h ../src/GestPWM.h
 
 ../src/app.h:
 
@@ -258,6 +260,12 @@ build/default/production/_ext/1360937237/app.o: ../src/app.c ../src/app.h \
 ../../../../../../framework/system/common/sys_common.h:
 
 ../../../../../../framework/system/common/sys_module.h:
+
+../../../../../../framework/driver/oc/drv_oc.h:
+
+../../../../../../framework/driver/driver_common.h:
+
+../src/system_config/default/framework/driver/oc/drv_oc_static.h:
 
 ../../../../../../framework/system/devcon/sys_devcon.h:
 
@@ -423,8 +431,6 @@ build/default/production/_ext/1360937237/app.o: ../src/app.c ../src/app.h \
 
 ../../../../../../framework/driver/tmr/drv_tmr.h:
 
-../../../../../../framework/driver/driver_common.h:
-
 ../../../../../../framework/driver/tmr/tmr_definitions_pic32m.h:
 
 ../../../../../../framework/driver/tmr/drv_tmr_compatibility.h:
@@ -438,3 +444,5 @@ build/default/production/_ext/1360937237/app.o: ../src/app.c ../src/app.h \
 ../../../../../../bsp/pic32mx_skes/Mc32DriverAdc.h:
 
 ../../../../../../bsp/pic32mx_skes/Mc32DriverLcd.h:
+
+../src/GestPWM.h:

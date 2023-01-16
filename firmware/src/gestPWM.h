@@ -34,10 +34,23 @@ extern S_pwmSettings PWMData;
 void GPWM_Initialize(S_pwmSettings *pData);
 
 // Ces 3 fonctions ont pour paramètre un pointeur sur la structure S_pwmSettings.
-void GPWM_GetSettings(S_pwmSettings *pData);	// Obtention vitesse et angle
-void GPWM_DispSettings(S_pwmSettings *pData);	// Affichage
-void GPWM_ExecPWM(S_pwmSettings *pData);		// Execution PWM et gestion moteur.
+void GPWM_GetSettings(S_pwmSettings *pData);       // Obtention vitesse et angle
+void GPWM_DispSettings(S_pwmSettings *pData);      // Affichage
+void GPWM_ExecPWM(S_pwmSettings *pData);           // Execution PWM et gestion moteur.
 void GPWM_ExecPWMSoft(S_pwmSettings *pData);		// Execution PWM software.
 
+#define PERIODECOUNTERTIMDEUX 1999
+#define PERIODECOUNTERTIMTROIS 17499
+#define OFFSETTIMERDEUX 1500
+#define VALMAXPCTTIMERDEUX 6000
+
+#define LIMITEMAXADC 1023
+
+#define LIMITEMAXVITESSE 99
+#define LIMITEMAXVITESSEABS 198
+#define LIMITEMAXXANGLE 90
+#define LIMITEMAXANGLEABS 180
+
+#define VALEURMOYENNE 10
 
 #endif

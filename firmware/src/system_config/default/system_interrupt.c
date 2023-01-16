@@ -61,6 +61,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 #include "system/common/sys_common.h"
 #include "app.h"
+#include "gestPWM.h"
 #include "system_definitions.h"
 
 // *****************************************************************************
@@ -69,11 +70,27 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 // *****************************************************************************
 // *****************************************************************************
 
- 
+S_pwmSettings data;
+static int compt = 0;
 
 void __ISR(_TIMER_1_VECTOR, ipl4AUTO) IntHandlerDrvTmrInstance0(void)
 {
+    //BSP_LEDToggle(BSP_LED_0); //Test fréquence Timer1
+    //BSP_LEDOn(BSP_LED_0); //test temps interrupt
     PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_TIMER_1);
+    //static int compt = 0; 
+    if ((compt < 150)&&(compt != 255)){ 
+       APP_UpdateState(APP_STATE_WAIT); //changement d'état
+       compt ++;
+    }
+    else{
+        compt = 255; // et "j'interdit le passage dans le if (interrupt 100ms)
+        GPWM_GetSettings(&data);
+        GPWM_DispSettings(&data);
+        GPWM_ExecPWM(&data);
+        APP_UpdateState(APP_STATE_SERVICE_TASKS); //changement d'état
+    }
+    //BSP_LEDOff(BSP_LED_0); //test temps interrupt
 }
 void __ISR(_TIMER_2_VECTOR, ipl0AUTO) IntHandlerDrvTmrInstance1(void)
 {
@@ -83,10 +100,16 @@ void __ISR(_TIMER_3_VECTOR, ipl0AUTO) IntHandlerDrvTmrInstance2(void)
 {
     PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_TIMER_3);
 }
-void __ISR(_TIMER_4_VECTOR, ipl4AUTO) IntHandlerDrvTmrInstance3(void)
+void __ISR(_TIMER_4_VECTOR, ipl7AUTO) IntHandlerDrvTmrInstance3(void)
 {
+    //BSP_LEDOn(BSP_LED_1); //test temps interrupt
+    //BSP_LEDToggle(BSP_LED_1); //Test fréquence Timer4
     PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_TIMER_4);
+    if (compt == 255){
+        GPWM_ExecPWMSoft(&data);
+    }
 }
+
  
 /*******************************************************************************
  End of File

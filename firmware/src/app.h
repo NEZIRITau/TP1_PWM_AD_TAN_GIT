@@ -64,7 +64,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
 
-extern "C" {
+
 
 #endif
 // DOM-IGNORE-END 
@@ -209,6 +209,8 @@ void GPWM_GetSettings();
 void GPWM_DispSettings();
 void GPWM_ExecPWM();
 
+void APP_UpdateState(APP_STATES NewState);
+void LED_Full (int state);
 
 
 

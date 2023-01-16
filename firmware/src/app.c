@@ -82,6 +82,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 */
 
 APP_DATA appData;
+S_pwmSettings data;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -148,19 +149,19 @@ void APP_Tasks ( void )
         /* Application's initial state. */
         case APP_STATE_INIT:
         {
-            lcd_init();                     //Initialisation du LCD
+            lcd_init();                       //Initialisation du LCD
             lcd_bl_on();
+            BSP_InitADC10();                  //Init du convertisseur AD
+            
+            
             printf_lcd("Tp1 PWM 2022-23");   //Affichage LCD
             lcd_gotoxy(1,2);
             printf_lcd("Neziri Taulant");
             
-            BSP_InitADC10();             //Init du convertisseur AD   
-            //LEDS_ON_OFF(1);                 //Toutes les leds allumées
+            LED_Full(0);                         //Toutes les leds éteintes
             
-            GPWM_Initialize();               //Start de tous les Timers
-            BSP_EnableHbrige(); 
-                
-            appData.state = APP_STATE_WAIT;
+            GPWM_Initialize(&data);              //Start de tous les Timers
+            APP_UpdateState(APP_STATE_WAIT);
             
             break;
         }
@@ -174,14 +175,7 @@ void APP_Tasks ( void )
         
         case APP_STATE_SERVICE_TASKS:
         {
-            lcd_gotoxy(1,2);
-            //printf_lcd("SpeddSetting: %3d", );
-            lcd_gotoxy(1,3);
-            //printf_lcd("absSpeed: %2d", );
-            lcd_gotoxy(1,4);
-            //printf_lcd("Angle:  %3d", );
-            
-            appData.state = APP_STATE_WAIT;
+            APP_UpdateState(APP_STATE_WAIT);
             break;
         }
 
@@ -196,6 +190,34 @@ void APP_Tasks ( void )
         }
     }
 }
+
+void LED_Full (int state)
+{
+    if (state == 1){
+        BSP_LEDOn(BSP_LED_0);
+        BSP_LEDOn(BSP_LED_1); 
+        BSP_LEDOn(BSP_LED_2);
+        BSP_LEDOn(BSP_LED_3);
+        BSP_LEDOn(BSP_LED_4);
+        BSP_LEDOn(BSP_LED_5); 
+        BSP_LEDOn(BSP_LED_6);
+        BSP_LEDOn(BSP_LED_7);          
+    }
+    else{
+        BSP_LEDOff(BSP_LED_0);
+        BSP_LEDOff(BSP_LED_1); 
+        BSP_LEDOff(BSP_LED_2);
+        BSP_LEDOff(BSP_LED_3);
+        BSP_LEDOff(BSP_LED_4);
+        BSP_LEDOff(BSP_LED_5); 
+        BSP_LEDOff(BSP_LED_6);
+        BSP_LEDOff(BSP_LED_7);         
+    }     
+}
+void APP_UpdateState (APP_STATES NewState)
+{
+    appData.state = NewState;
+} 
 
 /*******************************************************************************
  End of File
